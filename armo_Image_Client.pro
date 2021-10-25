@@ -32,3 +32,6 @@ INCLUDEPATH += "c:\Users\Z\.nuget\packages\pthreads\2.9.1.4\build\native\include
 LIBS += "e:\Soft\omniORB\omniORB-vs-15-4.2.4\lib\x86_win32\omniORB424_rtd.lib"
 LIBS += "e:\Soft\omniORB\omniORB-vs-15-4.2.4\lib\x86_win32\omnithread41_rtd.lib"
 LIBS += "e:\Soft\omniORB\omniORB-vs-15-4.2.4\lib\x86_win32\omniDynamic424_rtd.lib"
+
+DISTFILES += \
+    README.txt
