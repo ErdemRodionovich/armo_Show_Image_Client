@@ -4,6 +4,14 @@
 #include <QObject>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QImage>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QByteArray>
+#include <QPixmap>
+#include <QBuffer>
+#include <QFileInfo>
+#include <QUrl>
 #include "../armo_Image/armoShowImage.hh"
 
 class armo_Client_Global : public QObject
@@ -14,6 +22,8 @@ private:
     QObject* proot;
     int argc;
     char **argv;
+    CORBA::ORB_var orb;
+    CORBA::Object_var obj;
 
     void callShowImage(CORBA::Object_ptr obj, QString filename);
 
@@ -27,6 +37,7 @@ signals:
 public slots:
     void onEngineCreated(QObject *obj, const QUrl &objUrl);
     void onShowImage(QString srvID, QString filename);
+    void onServerChoosed(QString servID);
 
 };
 

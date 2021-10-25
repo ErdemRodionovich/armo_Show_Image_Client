@@ -10,6 +10,7 @@ Window {
     title: qsTr("Badluev Erdem for Armo (Client)")
 
     signal showImage(string srvID, string filename)
+    signal serverChoosed(string srvID)
 
     Text{
         id:captionOfSrvId
@@ -29,8 +30,17 @@ Window {
     }
 
     Button{
+        id:srvChooseButton
+        text: qsTr("Connect to server")
+        anchors.top: srvIdInput.bottom
+        onClicked: {
+            serverChoosed(srvIdInput.text)
+        }
+    }
+
+    Button{
         id:fileChooseButton
-        text: qsTr("Open file")
+        text: qsTr("Open file and send")
         onClicked: {
             if(srvIdInput.text == ""){
                 mesDialog.open()
@@ -38,7 +48,7 @@ Window {
                 fileChooseDialog.open()
             }
         }
-        anchors.top: srvIdInput.bottom
+        anchors.top: srvChooseButton.bottom
     }
 
     MessageDialog{
