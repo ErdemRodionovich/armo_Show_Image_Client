@@ -10,7 +10,6 @@ Window {
     title: qsTr("Badluev Erdem for Armo (Client)")
 
     signal showImage(string srvID, string filename)
-    signal serverChoosed(string srvID)
 
     Text{
         id:captionOfSrvId
@@ -30,15 +29,6 @@ Window {
     }
 
     Button{
-        id:srvChooseButton
-        text: qsTr("Connect to server")
-        anchors.top: srvIdInput.bottom
-        onClicked: {
-            serverChoosed(srvIdInput.text)
-        }
-    }
-
-    Button{
         id:fileChooseButton
         text: qsTr("Open file and send")
         onClicked: {
@@ -48,7 +38,7 @@ Window {
                 fileChooseDialog.open()
             }
         }
-        anchors.top: srvChooseButton.bottom
+        anchors.top: srvIdInput.bottom
     }
 
     MessageDialog{
@@ -59,7 +49,7 @@ Window {
 
     FileDialog{
         id:fileChooseDialog
-        title: "Please choose a image"
+        title: qsTr("Please choose an image")
         folder: shortcuts.home
         nameFilters: ["jpeg (*.jpeg)", "jpg (*.jpg)", "png (*.png)"]
         onAccepted: {

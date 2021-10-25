@@ -22,8 +22,6 @@ private:
     QObject* proot;
     int argc;
     char **argv;
-    CORBA::ORB_var orb;
-    CORBA::Object_var obj;
 
     void callShowImage(CORBA::Object_ptr obj, QString filename);
 
@@ -37,7 +35,6 @@ signals:
 public slots:
     void onEngineCreated(QObject *obj, const QUrl &objUrl);
     void onShowImage(QString srvID, QString filename);
-    void onServerChoosed(QString servID);
 
 };
 

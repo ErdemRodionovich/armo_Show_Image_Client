@@ -18,10 +18,6 @@ void armo_Client_Global::onEngineCreated(QObject *obj, const QUrl &objUrl){
                      this, SLOT(onShowImage(QString, QString)),
                      Qt::QueuedConnection);
 
-    QObject::connect(proot, SIGNAL(serverChoosed(QString)),
-                     this, SLOT(onServerChoosed(QString)),
-                     Qt::QueuedConnection);
-
 }
 
 void armo_Client_Global::callShowImage(CORBA::Object_ptr objServ, QString filename){
@@ -52,30 +48,25 @@ void armo_Client_Global::callShowImage(CORBA::Object_ptr objServ, QString filena
 
     QJsonDocument jdoc(js);
     QString jstring = jdoc.toJson();
-    qDebug()<<jstring;
     QByteArray ba_jstring = jstring.toLocal8Bit();
     CORBA::String_var ans;
     ans = echoref->showImageByString(ba_jstring.data());
-    qDebug()<<" get ans="<<ans;
 
 }
 
 void armo_Client_Global::onShowImage(QString srvID, QString filename){
 
-    /*
     try {
-        qDebug()<<" start send show srvID="<<srvID<<"   fileName="<<filename;
-        //CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
+        CORBA::ORB_var orb = CORBA::ORB_init(argc, argv);
 
-        //QByteArray ba_srvID = srvID.toLocal8Bit();
-        //CORBA::Object_var obj = orb->string_to_object(ba_srvID.data());
+        QByteArray ba_srvID = srvID.toLocal8Bit();
+        CORBA::Object_var obj = orb->string_to_object(ba_srvID.data());
         callShowImage(obj, filename);
 
         orb->destroy();
       }
       catch (CORBA::TRANSIENT&) {
-        qDebug() << "Caught system exception TRANSIENT -- unable to contact the "
-             << "server." << endl;
+        qDebug() << "Caught system exception TRANSIENT -- unable to contact the " << "server." << endl;
       }
       catch (CORBA::SystemException& ex) {
         qDebug() << "Caught a CORBA::" << ex._name() << endl;
@@ -84,43 +75,11 @@ void armo_Client_Global::onShowImage(QString srvID, QString filename){
         qDebug() << "Caught CORBA::Exception: " << ex._name() << endl;
       }
 
-    */
-
-    if(!CORBA::is_nil(obj)){
-        qDebug()<<" start send show srvID="<<srvID<<"   fileName="<<filename;
-        callShowImage(obj, filename);
-    }else{
-        qDebug()<<" obj of servant is nil!";
-    }
-
 }
 
 void armo_Client_Global::setArgs(int argcount, char **arguments){
 
     argc = argcount;
     argv = arguments;
-
-}
-
-void armo_Client_Global::onServerChoosed(QString servID){
-
-    try {
-        orb = CORBA::ORB_init(argc, argv);
-
-        QByteArray ba_srvID = servID.toLocal8Bit();
-        obj = orb->string_to_object(ba_srvID.data());
-        qDebug()<<"serv connected";
-        //orb->destroy();
-    }
-    catch (CORBA::TRANSIENT&) {
-        qDebug() << "Caught system exception TRANSIENT -- unable to contact the "
-             << "server." << endl;
-    }
-    catch (CORBA::SystemException& ex) {
-        qDebug() << "Caught a CORBA::" << ex._name() << endl;
-    }
-    catch (CORBA::Exception& ex) {
-        qDebug() << "Caught CORBA::Exception: " << ex._name() << endl;
-    }
 
 }
